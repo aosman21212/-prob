@@ -148,8 +148,8 @@
         <field name="name">Sales Contract (SPA)</field>
         <field name="model">property.sales.contract</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">property_management.report_sales_contract_template</field>
-        <field name="report_file">property_management.report_sales_contract_template</field>
+        <field name="report_name">leapai_property_management.report_sales_contract_template</field>
+        <field name="report_file">leapai_property_management.report_sales_contract_template</field>
         <field name="binding_model_id" ref="model_property_sales_contract"/>
         <field name="binding_type">report</field>
     </record>

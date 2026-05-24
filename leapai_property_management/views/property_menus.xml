@@ -4,7 +4,7 @@
         <menuitem id="menu_property_root"
             name="Property"
             sequence="55"
-            web_icon="property_management,static/description/icon.png"/>
+            web_icon="leapai_property_management,static/description/icon.png"/>
 
         <menuitem id="menu_property_properties"
             name="Properties"

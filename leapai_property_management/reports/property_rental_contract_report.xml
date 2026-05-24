@@ -128,8 +128,8 @@
         <field name="name">Rental Contract</field>
         <field name="model">property.rental.contract</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">property_management.report_rental_contract_template</field>
-        <field name="report_file">property_management.report_rental_contract_template</field>
+        <field name="report_name">leapai_property_management.report_rental_contract_template</field>
+        <field name="report_file">leapai_property_management.report_rental_contract_template</field>
         <field name="binding_model_id" ref="model_property_rental_contract"/>
         <field name="binding_type">report</field>
     </record>
