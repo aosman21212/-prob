@@ -17,6 +17,15 @@ Complete property management solution for Odoo 19:
     'author': 'leapai.ai',
     'website': 'https://leapai.ai',
     'license': 'LGPL-3',
+    'images': [
+        'static/description/banner.png',
+        'static/description/icon.png',
+        'static/description/screenshot_01_property_units.png',
+        'static/description/screenshot_02_unit_form.png',
+        'static/description/screenshot_03_rental_contract.png',
+        'static/description/screenshot_04_sales_contract.png',
+        'static/description/screenshot_05_pdf_report.png',
+    ],
     'depends': ['account', 'mail', 'contacts'],
     'data': [
         'security/property_security.xml',
