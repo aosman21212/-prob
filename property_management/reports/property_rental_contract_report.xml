@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_rental_contract_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <style>
+                            .prop-header { background: #2c3e50; color: white; padding: 20px; margin-bottom: 20px; }
+                            .prop-section { margin-bottom: 15px; }
+                            .prop-label { font-weight: bold; color: #555; }
+                            .prop-value { font-size: 14px; }
+                            .prop-table { width: 100%; border-collapse: collapse; }
+                            .prop-table th { background: #ecf0f1; padding: 8px; text-align: left; }
+                            .prop-table td { padding: 8px; border-bottom: 1px solid #eee; }
+                            .status-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+                            .status-active { background: #27ae60; color: white; }
+                            .status-draft { background: #f39c12; color: white; }
+                        </style>
+                        <div class="prop-header">
+                            <h2 style="margin:0;">RENTAL CONTRACT</h2>
+                            <div><t t-esc="doc.name"/></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="prop-section">
+                                    <div class="prop-label">Property Unit</div>
+                                    <div class="prop-value"><t t-esc="doc.unit_id.name"/></div>
+                                    <div class="text-muted">
+                                        <t t-esc="doc.unit_id.building"/>
+                                        <t t-if="doc.unit_id.floor"> &#x2014; Floor <t t-esc="doc.unit_id.floor"/></t>
+                                    </div>
+                                    <div class="text-muted"><t t-esc="doc.unit_id.city"/></div>
+                                </div>
+                            </div>
+                            <div class="col-6 text-end">
+                                <div class="prop-section">
+                                    <div class="prop-label">Contract Status</div>
+                                    <span t-attf-class="status-badge status-#{doc.state}">
+                                        <t t-esc="doc.state.upper()"/>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="prop-table" style="margin-bottom:20px;">
+                            <thead>
+                                <tr>
+                                    <th>Field</th>
+                                    <th>Landlord</th>
+                                    <th>Tenant</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="prop-label">Name</td>
+                                    <td><t t-esc="doc.owner_id.name or '-'"/></td>
+                                    <td><t t-esc="doc.tenant_id.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="prop-label">Phone</td>
+                                    <td><t t-esc="doc.owner_id.phone or '-'"/></td>
+                                    <td><t t-esc="doc.tenant_id.phone or '-'"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="prop-label">Email</td>
+                                    <td><t t-esc="doc.owner_id.email or '-'"/></td>
+                                    <td><t t-esc="doc.tenant_id.email or '-'"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="prop-table" style="margin-bottom:20px;">
+                            <thead>
+                                <tr><th colspan="2">Contract Terms</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="prop-label">Start Date</td>
+                                    <td><t t-esc="doc.date_start"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="prop-label">End Date</td>
+                                    <td><t t-esc="doc.date_end"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="prop-label">Payment Terms</td>
+                                    <td><t t-esc="dict(doc._fields['payment_term']._description_selection(doc.env)).get(doc.payment_term, doc.payment_term)"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="prop-label">Monthly Rent</td>
+                                    <td><t t-esc="doc.rent_amount"/> <t t-esc="doc.currency_id.symbol"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="prop-label">Security Deposit</td>
+                                    <td><t t-esc="doc.security_deposit"/> <t t-esc="doc.currency_id.symbol"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="prop-label">Admin Fee</td>
+                                    <td><t t-esc="doc.admin_fee"/> <t t-esc="doc.currency_id.symbol"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <t t-if="doc.notes">
+                            <div class="prop-section">
+                                <div class="prop-label">Terms &amp; Conditions</div>
+                                <div><t t-out="doc.notes"/></div>
+                            </div>
+                        </t>
+                        <div style="margin-top:60px;">
+                            <table width="100%">
+                                <tr>
+                                    <td width="40%" style="border-top:1px solid #333;padding-top:8px;text-align:center;">
+                                        Landlord Signature
+                                    </td>
+                                    <td width="20%"></td>
+                                    <td width="40%" style="border-top:1px solid #333;padding-top:8px;text-align:center;">
+                                        Tenant Signature
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_report_rental_contract" model="ir.actions.report">
+        <field name="name">Rental Contract</field>
+        <field name="model">property.rental.contract</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">property_management.report_rental_contract_template</field>
+        <field name="report_file">property_management.report_rental_contract_template</field>
+        <field name="binding_model_id" ref="model_property_rental_contract"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

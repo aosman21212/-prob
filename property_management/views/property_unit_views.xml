@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Kanban View -->
+    <record id="view_property_unit_kanban" model="ir.ui.view">
+        <field name="name">property.unit.kanban</field>
+        <field name="model">property.unit</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" default_group_by="state">
+                <field name="name"/>
+                <field name="property_type"/>
+                <field name="state"/>
+                <field name="rent_amount"/>
+                <field name="sale_price"/>
+                <field name="city"/>
+                <field name="bedrooms"/>
+                <field name="bathrooms"/>
+                <field name="area_sqft"/>
+                <field name="image_small"/>
+                <field name="currency_id"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="row g-0">
+                            <div t-if="record.image_small.value" class="col-auto">
+                                <img t-att-src="record.image_small.value" class="o_kanban_image" style="width:64px;height:64px;object-fit:cover;border-radius:4px;margin-right:8px;" alt="Property"/>
+                            </div>
+                            <div class="col">
+                                <strong><field name="name"/></strong>
+                                <div class="text-muted"><field name="property_type"/></div>
+                                <div t-if="record.city.value">
+                                    <i class="fa fa-map-marker" title="City"/> <field name="city"/>
+                                </div>
+                                <div class="d-flex gap-2 mt-1">
+                                    <span t-if="record.bedrooms.value">
+                                        <i class="fa fa-bed" title="Bedrooms"/> <field name="bedrooms"/>
+                                    </span>
+                                    <span t-if="record.bathrooms.value">
+                                        <i class="fa fa-bath" title="Bathrooms"/> <field name="bathrooms"/>
+                                    </span>
+                                    <span t-if="record.area_sqft.value">
+                                        <i class="fa fa-arrows" title="Area"/> <field name="area_sqft"/> sqft
+                                    </span>
+                                </div>
+                                <div class="mt-1">
+                                    <span class="badge"
+                                        t-att-class="{
+                                            'bg-success': record.state.raw_value == 'available',
+                                            'bg-warning text-dark': record.state.raw_value == 'booked',
+                                            'bg-info': record.state.raw_value == 'rented',
+                                            'bg-danger': record.state.raw_value == 'sold',
+                                            'bg-secondary': record.state.raw_value == 'maintenance'
+                                        }">
+                                        <field name="state"/>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- List View -->
+    <record id="view_property_unit_list" model="ir.ui.view">
+        <field name="name">property.unit.list</field>
+        <field name="model">property.unit</field>
+        <field name="arch" type="xml">
+            <list string="Property Units"
+                decoration-success="state == 'available'"
+                decoration-info="state == 'rented'"
+                decoration-warning="state == 'booked'"
+                decoration-danger="state == 'sold'">
+                <field name="name"/>
+                <field name="property_type"/>
+                <field name="building"/>
+                <field name="floor"/>
+                <field name="unit_number"/>
+                <field name="city"/>
+                <field name="area_sqft"/>
+                <field name="bedrooms"/>
+                <field name="bathrooms"/>
+                <field name="rent_amount"/>
+                <field name="sale_price"/>
+                <field name="state" widget="badge"
+                    decoration-success="state == 'available'"
+                    decoration-info="state == 'rented'"
+                    decoration-warning="state == 'booked'"
+                    decoration-danger="state == 'sold'"/>
+                <field name="owner_id"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_property_unit_form" model="ir.ui.view">
+        <field name="name">property.unit.form</field>
+        <field name="model">property.unit</field>
+        <field name="arch" type="xml">
+            <form string="Property Unit">
+                <header>
+                    <button name="action_set_available" string="Set Available" type="object"
+                        class="btn-primary" invisible="state == 'available'"/>
+                    <button name="action_view_rental_contracts" string="New Rental Contract"
+                        type="object" class="btn-secondary"
+                        invisible="state not in ['available']"/>
+                    <button name="action_set_maintenance" string="Under Maintenance"
+                        type="object" invisible="state == 'maintenance'"/>
+                    <field name="state" widget="statusbar"
+                        statusbar_visible="available,booked,rented,sold"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object"
+                            name="action_view_rental_contracts" icon="fa-file-text-o">
+                            <field name="rental_contract_count" widget="statinfo"
+                                string="Rental Contracts"/>
+                        </button>
+                        <button class="oe_stat_button" type="object"
+                            name="action_view_sales_contracts" icon="fa-handshake-o">
+                            <field name="sales_contract_count" widget="statinfo"
+                                string="Sales Contracts"/>
+                        </button>
+                    </div>
+                    <field name="image" widget="image" class="oe_avatar"
+                        options="{'preview_image': 'image_small'}"/>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Unit Name / Reference"/></h1>
+                        <h2><field name="ref" placeholder="Reference Code"/></h2>
+                    </div>
+                    <group>
+                        <group string="Property Details">
+                            <field name="property_type"/>
+                            <field name="building"/>
+                            <field name="floor"/>
+                            <field name="unit_number"/>
+                            <field name="furnishing"/>
+                            <field name="facing"/>
+                        </group>
+                        <group string="Owner">
+                            <field name="owner_id"/>
+                            <field name="current_tenant_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Specifications">
+                            <group>
+                                <group string="Size &amp; Layout">
+                                    <field name="area_sqft"/>
+                                    <field name="area_sqm" readonly="1"/>
+                                    <field name="bedrooms"/>
+                                    <field name="bathrooms"/>
+                                    <field name="balconies"/>
+                                    <field name="parking_spaces"/>
+                                </group>
+                                <group string="Pricing">
+                                    <field name="currency_id" invisible="1"/>
+                                    <field name="rent_amount"/>
+                                    <field name="sale_price"/>
+                                    <field name="security_deposit"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Location">
+                            <group>
+                                <group>
+                                    <field name="street"/>
+                                    <field name="city"/>
+                                    <field name="zip_code"/>
+                                </group>
+                                <group>
+                                    <field name="state_id"/>
+                                    <field name="country_id"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Amenities">
+                            <field name="amenity_ids" widget="many2many_tags"/>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes" placeholder="Additional notes about this property..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_property_unit_search" model="ir.ui.view">
+        <field name="name">property.unit.search</field>
+        <field name="model">property.unit</field>
+        <field name="arch" type="xml">
+            <search string="Search Properties">
+                <field name="name"/>
+                <field name="city"/>
+                <field name="owner_id"/>
+                <field name="property_type"/>
+                <separator/>
+                <filter string="Available" name="available" domain="[('state','=','available')]"/>
+                <filter string="Rented" name="rented" domain="[('state','=','rented')]"/>
+                <filter string="Sold" name="sold" domain="[('state','=','sold')]"/>
+                <filter string="Booked" name="booked" domain="[('state','=','booked')]"/>
+                <separator/>
+                <filter string="Apartment" name="apartment" domain="[('property_type','=','apartment')]"/>
+                <filter string="Villa" name="villa" domain="[('property_type','=','villa')]"/>
+                <filter string="Commercial" name="commercial" domain="[('property_type','=','commercial')]"/>
+                <group>
+                    <filter string="Status" name="group_state" context="{'group_by': 'state'}"/>
+                    <filter string="Type" name="group_type" context="{'group_by': 'property_type'}"/>
+                    <filter string="City" name="group_city" context="{'group_by': 'city'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_property_unit" model="ir.actions.act_window">
+        <field name="name">Properties</field>
+        <field name="res_model">property.unit</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="context">{'search_default_available': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Add your first property unit</p>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="menu_property_root"
+            name="Property"
+            sequence="55"
+            web_icon="property_management,static/description/icon.png"/>
+
+        <menuitem id="menu_property_properties"
+            name="Properties"
+            parent="menu_property_root"
+            sequence="10"/>
+        <menuitem id="menu_property_units"
+            name="All Properties"
+            parent="menu_property_properties"
+            action="action_property_unit"
+            sequence="10"/>
+
+        <menuitem id="menu_property_rental"
+            name="Rental"
+            parent="menu_property_root"
+            sequence="20"/>
+        <menuitem id="menu_property_rental_contracts"
+            name="Rental Contracts"
+            parent="menu_property_rental"
+            action="action_rental_contract"
+            sequence="10"/>
+
+        <menuitem id="menu_property_sales"
+            name="Sales"
+            parent="menu_property_root"
+            sequence="30"/>
+        <menuitem id="menu_property_sales_contracts"
+            name="Sales Contracts"
+            parent="menu_property_sales"
+            action="action_sales_contract"
+            sequence="10"/>
+
+        <menuitem id="menu_property_config"
+            name="Configuration"
+            parent="menu_property_root"
+            sequence="90"/>
+        <menuitem id="menu_property_amenities"
+            name="Amenities"
+            parent="menu_property_config"
+            action="action_property_amenity"
+            sequence="10"/>
+    </data>
+</odoo>

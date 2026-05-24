@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_sales_contract_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <style>
+                            .prop-header { background: #1a3a5c; color: white; padding: 20px; margin-bottom: 20px; }
+                            .prop-label { font-weight: bold; color: #555; }
+                            .prop-table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
+                            .prop-table th { background: #ecf0f1; padding: 8px; text-align: left; }
+                            .prop-table td { padding: 8px; border-bottom: 1px solid #eee; }
+                        </style>
+                        <div class="prop-header">
+                            <h2 style="margin:0;">SALE &amp; PURCHASE AGREEMENT (SPA)</h2>
+                            <div><t t-esc="doc.name"/></div>
+                        </div>
+                        <table class="prop-table">
+                            <thead>
+                                <tr><th colspan="2">Property Details</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="prop-label">Property</td>
+                                    <td><t t-esc="doc.unit_id.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="prop-label">Type</td>
+                                    <td><t t-esc="doc.unit_id.property_type"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="prop-label">Area</td>
+                                    <td><t t-esc="doc.unit_id.area_sqft"/> sqft</td>
+                                </tr>
+                                <tr>
+                                    <td class="prop-label">Location</td>
+                                    <td><t t-esc="doc.unit_id.city"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="prop-table">
+                            <thead>
+                                <tr>
+                                    <th>Field</th>
+                                    <th>Seller</th>
+                                    <th>Buyer</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="prop-label">Name</td>
+                                    <td><t t-esc="doc.seller_id.name or '-'"/></td>
+                                    <td><t t-esc="doc.buyer_id.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="prop-label">Phone</td>
+                                    <td><t t-esc="doc.seller_id.phone or '-'"/></td>
+                                    <td><t t-esc="doc.buyer_id.phone or '-'"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="prop-table">
+                            <thead>
+                                <tr><th colspan="2">Financial Summary</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="prop-label">Sale Price (Listed)</td>
+                                    <td><t t-esc="doc.sale_price"/> <t t-esc="doc.currency_id.symbol"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="prop-label">Agreed Price</td>
+                                    <td><strong><t t-esc="doc.agreed_price"/> <t t-esc="doc.currency_id.symbol"/></strong></td>
+                                </tr>
+                                <tr>
+                                    <td class="prop-label">Booking Amount</td>
+                                    <td><t t-esc="doc.booking_amount"/> <t t-esc="doc.currency_id.symbol"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="prop-label">Down Payment</td>
+                                    <td><t t-esc="doc.down_payment"/> <t t-esc="doc.currency_id.symbol"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="prop-label">Admin Fee</td>
+                                    <td><t t-esc="doc.admin_fee"/> <t t-esc="doc.currency_id.symbol"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="prop-label">Stamp Duty</td>
+                                    <td><t t-esc="doc.stamp_duty"/> <t t-esc="doc.currency_id.symbol"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="prop-label">Registration Fee</td>
+                                    <td><t t-esc="doc.registration_fee"/> <t t-esc="doc.currency_id.symbol"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="prop-label">Total Paid</td>
+                                    <td><t t-esc="doc.total_paid"/> <t t-esc="doc.currency_id.symbol"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="prop-label">Balance Due</td>
+                                    <td><strong><t t-esc="doc.balance_due"/> <t t-esc="doc.currency_id.symbol"/></strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <t t-if="doc.payment_plan_ids">
+                            <table class="prop-table">
+                                <thead>
+                                    <tr>
+                                        <th>Milestone</th>
+                                        <th>Due Date</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="doc.payment_plan_ids" t-as="plan">
+                                        <tr>
+                                            <td><t t-esc="plan.name"/></td>
+                                            <td><t t-esc="plan.due_date"/></td>
+                                            <td><t t-esc="plan.amount"/> <t t-esc="doc.currency_id.symbol"/></td>
+                                            <td><t t-esc="plan.state.upper()"/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </t>
+                        <div style="margin-top:60px;">
+                            <table width="100%">
+                                <tr>
+                                    <td width="40%" style="border-top:1px solid #333;padding-top:8px;text-align:center;">
+                                        Seller Signature
+                                    </td>
+                                    <td width="20%"></td>
+                                    <td width="40%" style="border-top:1px solid #333;padding-top:8px;text-align:center;">
+                                        Buyer Signature
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_report_sales_contract" model="ir.actions.report">
+        <field name="name">Sales Contract (SPA)</field>
+        <field name="model">property.sales.contract</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">property_management.report_sales_contract_template</field>
+        <field name="report_file">property_management.report_sales_contract_template</field>
+        <field name="binding_model_id" ref="model_property_sales_contract"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

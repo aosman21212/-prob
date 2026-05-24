@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Property Management — Odoo 19</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; background: #f5f5f5; color: #333; }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #4a2c5e 100%);
+    color: #fff;
+    padding: 60px 40px;
+    text-align: center;
+  }
+  .hero h1 { font-size: 2.6em; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.5px; }
+  .hero p { font-size: 1.18em; color: #c9d0e8; max-width: 660px; margin: 0 auto 28px; line-height: 1.6; }
+  .badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+  .badge {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(135,90,123,0.6);
+    color: #e8c4f0;
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: 600;
+  }
+
+  /* Section */
+  .section { max-width: 960px; margin: 0 auto; padding: 50px 24px; }
+  .section-title {
+    font-size: 1.7em;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+  .section-subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 36px;
+    font-size: 1em;
+  }
+  .divider {
+    width: 60px;
+    height: 4px;
+    background: #875A7B;
+    margin: 10px auto 32px;
+    border-radius: 2px;
+  }
+
+  /* Features Grid */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+  .feature-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 28px 22px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    border-top: 4px solid #875A7B;
+  }
+  .feature-icon { font-size: 2em; margin-bottom: 12px; }
+  .feature-card h3 { font-size: 1.05em; color: #1a1a2e; margin-bottom: 8px; font-weight: 700; }
+  .feature-card p { font-size: 0.88em; color: #666; line-height: 1.6; }
+
+  /* Screenshots */
+  .screenshots-section { background: #fff; }
+  .screenshot-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    overflow: hidden;
+    margin-bottom: 36px;
+  }
+  .screenshot-card img { display: block; width: 100%; }
+  .screenshot-caption {
+    padding: 14px 20px;
+    background: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+    font-size: 0.88em;
+    color: #555;
+    font-weight: 600;
+  }
+  .screenshot-num {
+    display: inline-block;
+    background: #1a1a2e;
+    color: #e8c4f0;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    text-align: center;
+    line-height: 22px;
+    font-size: 0.78em;
+    margin-right: 8px;
+  }
+
+  /* Steps */
+  .steps { display: flex; flex-direction: column; gap: 18px; }
+  .step {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    background: #fff;
+    padding: 22px 24px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  }
+  .step-num {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    background: #1a1a2e;
+    color: #e8c4f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.1em;
+  }
+  .step-body h4 { font-size: 1em; color: #1a1a2e; margin-bottom: 4px; font-weight: 700; }
+  .step-body p { font-size: 0.88em; color: #666; line-height: 1.5; }
+
+  /* Summary Table */
+  .summary-table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+  .summary-table th { background: #1a1a2e; color: #e8c4f0; padding: 14px 18px; text-align: left; font-size: 0.9em; font-weight: 700; }
+  .summary-table td { padding: 13px 18px; font-size: 0.88em; color: #444; border-bottom: 1px solid #f0f0f0; }
+  .summary-table tr:last-child td { border-bottom: none; }
+  .summary-table tr:nth-child(even) td { background: #f8f9fa; }
+  .summary-table td:first-child { font-weight: 700; color: #1a1a2e; }
+  .nav-path { font-family: monospace; background: #f3eaf5; color: #875A7B; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; }
+
+  /* Footer */
+  .footer {
+    background: #1a1a2e;
+    color: #8892b0;
+    text-align: center;
+    padding: 28px 20px;
+    font-size: 0.88em;
+    letter-spacing: 0.3px;
+  }
+  .footer span { color: #e8c4f0; }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <h1>🏠 Property Management</h1>
+  <p>Complete property solution for Odoo 19 — manage rentals, leases, sales and SPA contracts in one place. Free &amp; open source.</p>
+  <div class="badges">
+    <span class="badge">✓ Odoo 19</span>
+    <span class="badge">✓ Free (LGPL-3)</span>
+    <span class="badge">✓ Real Estate</span>
+    <span class="badge">✓ Rental &amp; Sales</span>
+    <span class="badge">✓ Auto Invoice</span>
+  </div>
+</div>
+
+<!-- ===== FEATURES ===== -->
+<div style="background:#f5f5f5;">
+  <div class="section">
+    <h2 class="section-title">Key Features</h2>
+    <div class="divider"></div>
+    <div class="features-grid">
+
+      <div class="feature-card">
+        <div class="feature-icon">🏢</div>
+        <h3>Property &amp; Unit Management</h3>
+        <p>Track apartments, villas, townhouses and commercial units. Kanban board with status badges — Available, Rented, Booked, Under Maintenance, Sold.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📋</div>
+        <h3>Rental Contract Management</h3>
+        <p>Full lease lifecycle from Draft to Active, Expired or Terminated. Payment terms: Monthly, Quarterly, Bi-annual and Yearly with automatic invoice generation.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📝</div>
+        <h3>Sales &amp; SPA Contracts</h3>
+        <p>Manage the full sale pipeline — Booking → SPA Signed → Completed. Installment payment plans with milestone tracking and balance due computation.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">💰</div>
+        <h3>Automated Invoicing</h3>
+        <p>Generate rent invoices automatically for the entire lease period based on payment terms. Booking fee invoicing with one click from the sales contract.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📄</div>
+        <h3>PDF Contract Reports</h3>
+        <p>Print professional Rental Agreement and Sales Contract PDFs directly from any contract — styled header, party details, terms, financials and signature lines.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>Demo Data Included</h3>
+        <p>8 amenities, 6 property units, 7 partners (owners, tenants, buyers), 3 rental contracts and 2 sales contracts with payment plans — ready to explore on install.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ===== SCREENSHOTS ===== -->
+<div class="screenshots-section">
+  <div class="section">
+    <h2 class="section-title">Screenshots</h2>
+    <p class="section-subtitle">See exactly how the module looks inside Odoo 19</p>
+    <div class="divider"></div>
+
+    <!-- Screenshot 1: Property Units Kanban -->
+    <div class="screenshot-card">
+      <img src="/property_management/static/description/screenshot_01_property_units.png"
+           style="width:100%;" alt="Property Units Kanban View"/>
+      <div class="screenshot-caption">
+        <span class="screenshot-num">1</span>
+        Property Units Kanban view — colour-coded status badges (Available, Rented, Booked, Sold) with image, type, city and bed/bath details per card
+      </div>
+    </div>
+
+    <!-- Screenshot 2: Unit Form -->
+    <div class="screenshot-card">
+      <img src="/property_management/static/description/screenshot_02_unit_form.png"
+           style="width:100%;" alt="Property Unit Form View"/>
+      <div class="screenshot-caption">
+        <span class="screenshot-num">2</span>
+        Property Unit form — status bar, smart buttons for linked contracts, full specifications (area, beds, baths, furnishing), pricing and amenities tabs
+      </div>
+    </div>
+
+    <!-- Screenshot 3: Rental Contract -->
+    <div class="screenshot-card">
+      <img src="/property_management/static/description/screenshot_03_rental_contract.png"
+           style="width:100%;" alt="Rental Contract Form View"/>
+      <div class="screenshot-caption">
+        <span class="screenshot-num">3</span>
+        Rental Contract form — Draft → Active → Expired workflow, financial summary, and linked invoice list with paid/posted status badges
+      </div>
+    </div>
+
+    <!-- Screenshot 4: Sales Contract SPA -->
+    <div class="screenshot-card">
+      <img src="/property_management/static/description/screenshot_04_sales_contract.png"
+           style="width:100%;" alt="Sales Contract SPA Form View"/>
+      <div class="screenshot-caption">
+        <span class="screenshot-num">4</span>
+        Sales Contract (SPA) form — Booking → SPA Signed → Completed pipeline, fee breakdown, total paid vs balance due, and installment payment plan table
+      </div>
+    </div>
+
+    <!-- Screenshot 5: PDF Report -->
+    <div class="screenshot-card">
+      <img src="/property_management/static/description/screenshot_05_pdf_report.png"
+           style="width:100%;" alt="Rental Contract PDF Report"/>
+      <div class="screenshot-caption">
+        <span class="screenshot-num">5</span>
+        Rental Agreement PDF — dark navy header, landlord/tenant party table, property details, contract terms, financials and dual signature lines
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== HOW TO USE ===== -->
+<div style="background:#f5f5f5;">
+  <div class="section">
+    <h2 class="section-title">How to Use</h2>
+    <div class="divider"></div>
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>Install the Module</h4>
+          <p>Install <strong>Property Management</strong> from Apps. Demo data loads automatically — 6 sample units, 3 rental contracts and 2 sales contracts are ready to explore immediately.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>Configure Amenities</h4>
+          <p>Go to <strong>Property → Configuration → Amenities</strong> and add your property features (Pool, Gym, Parking, etc.). These will be selectable on each unit.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>Create Property Units</h4>
+          <p>Navigate to <strong>Property → Properties</strong>. Click <em>New</em> and fill in the unit details — type, location, specifications, pricing, owner and amenities. Set the initial state to <em>Available</em>.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h4>Create a Rental Contract</h4>
+          <p>Go to <strong>Property → Rental → Rental Contracts</strong>. Select the unit and tenant, set dates and payment terms. Click <em>Activate</em> — the unit status updates to <em>Rented</em> automatically. Click <em>Generate Invoices</em> to create all period invoices at once.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <h4>Create a Sales Contract</h4>
+          <p>Go to <strong>Property → Sales → Sales Contracts</strong>. Select the unit and buyer, enter the agreed price and fees, add installment milestones to the Payment Plan tab. Click <em>Confirm Booking</em>, then <em>Sign SPA</em>, then <em>Mark Completed</em> as the sale progresses.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">6</div>
+        <div class="step-body">
+          <h4>Print PDF Contracts</h4>
+          <p>From any Rental or Sales contract, use the <strong>Print</strong> menu to generate a professional PDF document. The report includes all party details, property information, financial terms and signature lines.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODULE SUMMARY TABLE ===== -->
+<div style="background:#fff;">
+  <div class="section">
+    <h2 class="section-title">What's Included</h2>
+    <p class="section-subtitle">All views, workflows and reports out of the box</p>
+    <div class="divider"></div>
+    <table class="summary-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Description</th>
+          <th>Access Path</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Property Units</td>
+          <td>Kanban, List and Form views with full specifications, images and amenities</td>
+          <td><span class="nav-path">Property → Properties</span></td>
+        </tr>
+        <tr>
+          <td>Rental Contracts</td>
+          <td>Full lease workflow with automated invoice generation by payment term</td>
+          <td><span class="nav-path">Property → Rental</span></td>
+        </tr>
+        <tr>
+          <td>Sales Contracts</td>
+          <td>SPA workflow with installment payment plan and fee tracking</td>
+          <td><span class="nav-path">Property → Sales</span></td>
+        </tr>
+        <tr>
+          <td>Rental PDF Report</td>
+          <td>Professional Lease/Rental Agreement with party details and signature lines</td>
+          <td><span class="nav-path">Rental Contract → Print</span></td>
+        </tr>
+        <tr>
+          <td>Sales PDF Report</td>
+          <td>Sales Contract / SPA document with full financial breakdown and payment plan</td>
+          <td><span class="nav-path">Sales Contract → Print</span></td>
+        </tr>
+        <tr>
+          <td>Amenities</td>
+          <td>Configurable list of property features linked to units via many-to-many</td>
+          <td><span class="nav-path">Property → Configuration → Amenities</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+  Developed by <span>leapai.ai</span> &nbsp;|&nbsp; Odoo <span>19.0</span> &nbsp;|&nbsp; Version <span>19.0.1.0.0</span> &nbsp;|&nbsp; <span>LGPL-3</span> License &nbsp;|&nbsp; Free to use
+</div>
+
+</body>
+</html>

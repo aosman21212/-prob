@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data noupdate="1">
+
+    <!-- ==================== Amenities ==================== -->
+    <record id="amenity_pool" model="property.amenity">
+        <field name="name">Swimming Pool</field>
+        <field name="icon">fa-tint</field>
+    </record>
+    <record id="amenity_gym" model="property.amenity">
+        <field name="name">Gymnasium</field>
+        <field name="icon">fa-heartbeat</field>
+    </record>
+    <record id="amenity_parking" model="property.amenity">
+        <field name="name">Covered Parking</field>
+        <field name="icon">fa-car</field>
+    </record>
+    <record id="amenity_security" model="property.amenity">
+        <field name="name">24/7 Security</field>
+        <field name="icon">fa-shield</field>
+    </record>
+    <record id="amenity_concierge" model="property.amenity">
+        <field name="name">Concierge Service</field>
+        <field name="icon">fa-user-tie</field>
+    </record>
+    <record id="amenity_garden" model="property.amenity">
+        <field name="name">Private Garden</field>
+        <field name="icon">fa-leaf</field>
+    </record>
+    <record id="amenity_balcony" model="property.amenity">
+        <field name="name">Balcony / Terrace</field>
+        <field name="icon">fa-home</field>
+    </record>
+    <record id="amenity_sauna" model="property.amenity">
+        <field name="name">Sauna &amp; Steam Room</field>
+        <field name="icon">fa-fire</field>
+    </record>
+
+    <!-- ==================== Demo Partners (Owners) ==================== -->
+    <record id="partner_owner_ahmed" model="res.partner">
+        <field name="name">Ahmed Al Mansouri</field>
+        <field name="phone">+971501234567</field>
+        <field name="email">ahmed.almansouri@example.com</field>
+        <field name="city">Dubai</field>
+        <field name="is_company" eval="False"/>
+    </record>
+    <record id="partner_owner_fatima" model="res.partner">
+        <field name="name">Fatima Al Rashidi</field>
+        <field name="phone">+971507654321</field>
+        <field name="email">fatima.alrashidi@example.com</field>
+        <field name="city">Abu Dhabi</field>
+        <field name="is_company" eval="False"/>
+    </record>
+    <record id="partner_owner_corp" model="res.partner">
+        <field name="name">Gulf Properties LLC</field>
+        <field name="phone">+97143001234</field>
+        <field name="email">info@gulfproperties.ae</field>
+        <field name="city">Dubai</field>
+        <field name="is_company" eval="True"/>
+    </record>
+
+    <!-- ==================== Demo Partners (Tenants / Buyers) ==================== -->
+    <record id="partner_tenant_john" model="res.partner">
+        <field name="name">John Matthews</field>
+        <field name="phone">+971509876543</field>
+        <field name="email">john.matthews@example.com</field>
+        <field name="city">Dubai</field>
+        <field name="is_company" eval="False"/>
+    </record>
+    <record id="partner_tenant_sara" model="res.partner">
+        <field name="name">Sara Patel</field>
+        <field name="phone">+971558887766</field>
+        <field name="email">sara.patel@example.com</field>
+        <field name="city">Dubai Marina</field>
+        <field name="is_company" eval="False"/>
+    </record>
+    <record id="partner_buyer_wang" model="res.partner">
+        <field name="name">Wang Lei</field>
+        <field name="phone">+971501112233</field>
+        <field name="email">wang.lei@example.com</field>
+        <field name="city">Dubai</field>
+        <field name="is_company" eval="False"/>
+    </record>
+    <record id="partner_buyer_corp" model="res.partner">
+        <field name="name">Premier Investments FZE</field>
+        <field name="phone">+97144556677</field>
+        <field name="email">acquisitions@premierinvest.ae</field>
+        <field name="city">Sharjah</field>
+        <field name="is_company" eval="True"/>
+    </record>
+    <record id="partner_tenant_ravi" model="res.partner">
+        <field name="name">Ravi Sharma</field>
+        <field name="phone">+971556543210</field>
+        <field name="email">ravi.sharma@example.com</field>
+        <field name="city">Abu Dhabi</field>
+        <field name="is_company" eval="False"/>
+    </record>
+
+    <!-- ==================== Property Units ==================== -->
+
+    <!-- Unit 1: Apartment - Available for Rent -->
+    <record id="unit_apt_101" model="property.unit">
+        <field name="name">Apartment 101 - Marina Tower</field>
+        <field name="ref">MT-APT-101</field>
+        <field name="property_type">apartment</field>
+        <field name="state">available</field>
+        <field name="building">Marina Tower</field>
+        <field name="floor">10</field>
+        <field name="unit_number">101</field>
+        <field name="street">Marina Walk</field>
+        <field name="city">Dubai Marina</field>
+        <field name="area_sqft">1250.0</field>
+        <field name="bedrooms">2</field>
+        <field name="bathrooms">2</field>
+        <field name="parking_spaces">1</field>
+        <field name="balconies">1</field>
+        <field name="facing">west</field>
+        <field name="furnishing">fully_furnished</field>
+        <field name="rent_amount">8500</field>
+        <field name="sale_price">1200000</field>
+        <field name="security_deposit">17000</field>
+        <field name="owner_id" ref="partner_owner_ahmed"/>
+        <field name="amenity_ids" eval="[(4, ref('amenity_pool')), (4, ref('amenity_gym')), (4, ref('amenity_parking')), (4, ref('amenity_security'))]"/>
+        <field name="notes">&lt;p&gt;Sea-view apartment with stunning marina views. Recently renovated with high-end finishes. Includes all white goods and premium furniture.&lt;/p&gt;</field>
+    </record>
+
+    <!-- Unit 2: Villa - Currently Rented -->
+    <record id="unit_villa_palms" model="property.unit">
+        <field name="name">Palm Villa 7 - Jumeirah</field>
+        <field name="ref">JUM-VILLA-007</field>
+        <field name="property_type">villa</field>
+        <field name="state">rented</field>
+        <field name="building">Jumeirah Residences</field>
+        <field name="floor">0</field>
+        <field name="unit_number">7</field>
+        <field name="street">Jumeirah Beach Road</field>
+        <field name="city">Jumeirah</field>
+        <field name="area_sqft">4500.0</field>
+        <field name="bedrooms">5</field>
+        <field name="bathrooms">5</field>
+        <field name="parking_spaces">3</field>
+        <field name="balconies">2</field>
+        <field name="facing">south</field>
+        <field name="furnishing">semi_furnished</field>
+        <field name="rent_amount">25000</field>
+        <field name="sale_price">5500000</field>
+        <field name="security_deposit">50000</field>
+        <field name="owner_id" ref="partner_owner_fatima"/>
+        <field name="amenity_ids" eval="[(4, ref('amenity_pool')), (4, ref('amenity_garden')), (4, ref('amenity_security')), (4, ref('amenity_concierge'))]"/>
+        <field name="notes">&lt;p&gt;Luxurious 5-bedroom villa with private pool and landscaped garden. Direct beach access. Fully staffed with housekeeper included.&lt;/p&gt;</field>
+    </record>
+
+    <!-- Unit 3: Commercial Space - Available for Sale -->
+    <record id="unit_commercial_bur" model="property.unit">
+        <field name="name">Commercial Suite 305 - Bur Dubai</field>
+        <field name="ref">BD-COMM-305</field>
+        <field name="property_type">commercial</field>
+        <field name="state">booked</field>
+        <field name="building">Business Bay Tower</field>
+        <field name="floor">3</field>
+        <field name="unit_number">305</field>
+        <field name="street">Bank Street</field>
+        <field name="city">Bur Dubai</field>
+        <field name="area_sqft">2800.0</field>
+        <field name="bedrooms">0</field>
+        <field name="bathrooms">2</field>
+        <field name="parking_spaces">4</field>
+        <field name="balconies">0</field>
+        <field name="facing">north</field>
+        <field name="furnishing">unfurnished</field>
+        <field name="rent_amount">18000</field>
+        <field name="sale_price">2800000</field>
+        <field name="security_deposit">36000</field>
+        <field name="owner_id" ref="partner_owner_corp"/>
+        <field name="amenity_ids" eval="[(4, ref('amenity_parking')), (4, ref('amenity_security'))]"/>
+        <field name="notes">&lt;p&gt;Prime commercial space in Bur Dubai's business district. Open-plan layout suitable for offices, showrooms, or retail. Shell and core condition.&lt;/p&gt;</field>
+    </record>
+
+    <!-- Unit 4: Office - Available -->
+    <record id="unit_office_dip" model="property.unit">
+        <field name="name">Executive Office 12B - DIP</field>
+        <field name="ref">DIP-OFF-012B</field>
+        <field name="property_type">office</field>
+        <field name="state">available</field>
+        <field name="building">Dubai Investment Park Tower</field>
+        <field name="floor">12</field>
+        <field name="unit_number">12B</field>
+        <field name="street">Sheikh Zayed Road</field>
+        <field name="city">Dubai Investment Park</field>
+        <field name="area_sqft">950.0</field>
+        <field name="bedrooms">0</field>
+        <field name="bathrooms">1</field>
+        <field name="parking_spaces">2</field>
+        <field name="balconies">0</field>
+        <field name="facing">east</field>
+        <field name="furnishing">fully_furnished</field>
+        <field name="rent_amount">6500</field>
+        <field name="sale_price">750000</field>
+        <field name="security_deposit">13000</field>
+        <field name="owner_id" ref="partner_owner_corp"/>
+        <field name="amenity_ids" eval="[(4, ref('amenity_parking')), (4, ref('amenity_security')), (4, ref('amenity_concierge'))]"/>
+        <field name="notes">&lt;p&gt;Fully fitted executive office with glass partitions, reception area, 3 private offices and a boardroom. High-speed internet infrastructure installed.&lt;/p&gt;</field>
+    </record>
+
+    <!-- Unit 5: Apartment - Sold -->
+    <record id="unit_apt_downtown" model="property.unit">
+        <field name="name">Penthouse PH1 - Downtown Dubai</field>
+        <field name="ref">DT-PH-001</field>
+        <field name="property_type">apartment</field>
+        <field name="state">sold</field>
+        <field name="building">Burj Views Tower</field>
+        <field name="floor">42</field>
+        <field name="unit_number">PH1</field>
+        <field name="street">Mohammed Bin Rashid Boulevard</field>
+        <field name="city">Downtown Dubai</field>
+        <field name="area_sqft">6200.0</field>
+        <field name="bedrooms">4</field>
+        <field name="bathrooms">5</field>
+        <field name="parking_spaces">2</field>
+        <field name="balconies">3</field>
+        <field name="facing">north_east</field>
+        <field name="furnishing">fully_furnished</field>
+        <field name="rent_amount">55000</field>
+        <field name="sale_price">12500000</field>
+        <field name="security_deposit">110000</field>
+        <field name="owner_id" ref="partner_owner_ahmed"/>
+        <field name="amenity_ids" eval="[(4, ref('amenity_pool')), (4, ref('amenity_gym')), (4, ref('amenity_sauna')), (4, ref('amenity_concierge')), (4, ref('amenity_security'))]"/>
+        <field name="notes">&lt;p&gt;Ultra-luxury penthouse with direct Burj Khalifa and fountain views. Features a private rooftop terrace, chef's kitchen, and smart home automation throughout.&lt;/p&gt;</field>
+    </record>
+
+    <!-- Unit 6: Apartment - Available -->
+    <record id="unit_apt_jlt" model="property.unit">
+        <field name="name">Studio 8A - JLT Cluster</field>
+        <field name="ref">JLT-STD-8A</field>
+        <field name="property_type">apartment</field>
+        <field name="state">available</field>
+        <field name="building">Lake View Residences</field>
+        <field name="floor">8</field>
+        <field name="unit_number">8A</field>
+        <field name="street">Jumeirah Lake Towers</field>
+        <field name="city">JLT</field>
+        <field name="area_sqft">580.0</field>
+        <field name="bedrooms">0</field>
+        <field name="bathrooms">1</field>
+        <field name="parking_spaces">1</field>
+        <field name="balconies">1</field>
+        <field name="facing">north</field>
+        <field name="furnishing">fully_furnished</field>
+        <field name="rent_amount">4200</field>
+        <field name="sale_price">480000</field>
+        <field name="security_deposit">8400</field>
+        <field name="owner_id" ref="partner_owner_fatima"/>
+        <field name="amenity_ids" eval="[(4, ref('amenity_pool')), (4, ref('amenity_gym')), (4, ref('amenity_parking'))]"/>
+        <field name="notes">&lt;p&gt;Modern furnished studio with lake views. Ideal for young professionals. Walking distance to metro station and retail outlets.&lt;/p&gt;</field>
+    </record>
+
+    <!-- ==================== Rental Contracts ==================== -->
+
+    <!-- Active Rental Contract - Villa -->
+    <record id="rental_contract_villa_active" model="property.rental.contract">
+        <field name="name">RC/2025/0001</field>
+        <field name="unit_id" ref="unit_villa_palms"/>
+        <field name="tenant_id" ref="partner_tenant_john"/>
+        <field name="date_start">2025-01-01</field>
+        <field name="date_end">2025-12-31</field>
+        <field name="payment_term">quarterly</field>
+        <field name="security_deposit">50000</field>
+        <field name="admin_fee">2500</field>
+        <field name="state">active</field>
+        <field name="notes">&lt;p&gt;&lt;strong&gt;Terms and Conditions:&lt;/strong&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Tenant is responsible for utility bills (DEWA, Etisalat).&lt;/li&gt;&lt;li&gt;No subletting without written consent of the landlord.&lt;/li&gt;&lt;li&gt;Tenant must maintain the property in good condition.&lt;/li&gt;&lt;li&gt;90 days notice required for non-renewal.&lt;/li&gt;&lt;/ul&gt;</field>
+    </record>
+
+    <!-- Draft Rental Contract - Apartment 101 -->
+    <record id="rental_contract_apt101_draft" model="property.rental.contract">
+        <field name="name">RC/2026/0001</field>
+        <field name="unit_id" ref="unit_apt_101"/>
+        <field name="tenant_id" ref="partner_tenant_sara"/>
+        <field name="date_start">2026-06-01</field>
+        <field name="date_end">2027-05-31</field>
+        <field name="payment_term">monthly</field>
+        <field name="security_deposit">17000</field>
+        <field name="admin_fee">850</field>
+        <field name="state">draft</field>
+        <field name="notes">&lt;p&gt;Draft contract pending tenant signature. Rent inclusive of chiller / district cooling.&lt;/p&gt;</field>
+    </record>
+
+    <!-- Expired Rental Contract - Office -->
+    <record id="rental_contract_office_expired" model="property.rental.contract">
+        <field name="name">RC/2024/0015</field>
+        <field name="unit_id" ref="unit_office_dip"/>
+        <field name="tenant_id" ref="partner_tenant_ravi"/>
+        <field name="date_start">2024-01-01</field>
+        <field name="date_end">2024-12-31</field>
+        <field name="payment_term">biannual</field>
+        <field name="security_deposit">13000</field>
+        <field name="admin_fee">650</field>
+        <field name="state">expired</field>
+        <field name="notes">&lt;p&gt;Contract expired. Tenant has vacated the premises. Security deposit to be refunded after inspection.&lt;/p&gt;</field>
+    </record>
+
+    <!-- ==================== Sales Contracts ==================== -->
+
+    <!-- Booked Sales Contract - Commercial -->
+    <record id="sales_contract_commercial_booked" model="property.sales.contract">
+        <field name="name">SC/2025/0003</field>
+        <field name="unit_id" ref="unit_commercial_bur"/>
+        <field name="buyer_id" ref="partner_buyer_corp"/>
+        <field name="date_contract">2025-03-15</field>
+        <field name="date_completion">2025-09-30</field>
+        <field name="agreed_price">2650000</field>
+        <field name="booking_amount">265000</field>
+        <field name="down_payment">530000</field>
+        <field name="admin_fee">79500</field>
+        <field name="stamp_duty">106000</field>
+        <field name="registration_fee">26500</field>
+        <field name="state">booked</field>
+        <field name="notes">&lt;p&gt;EOI submitted and confirmed. SPA to be signed within 30 days. Buyer has obtained mortgage pre-approval from Emirates NBD.&lt;/p&gt;</field>
+    </record>
+
+    <!-- Completed Sales Contract - Penthouse -->
+    <record id="sales_contract_penthouse_completed" model="property.sales.contract">
+        <field name="name">SC/2024/0022</field>
+        <field name="unit_id" ref="unit_apt_downtown"/>
+        <field name="buyer_id" ref="partner_buyer_wang"/>
+        <field name="date_contract">2024-06-01</field>
+        <field name="date_completion">2024-11-30</field>
+        <field name="agreed_price">12000000</field>
+        <field name="booking_amount">1200000</field>
+        <field name="down_payment">2400000</field>
+        <field name="admin_fee">360000</field>
+        <field name="stamp_duty">480000</field>
+        <field name="registration_fee">40000</field>
+        <field name="state">completed</field>
+        <field name="notes">&lt;p&gt;Transfer completed at Dubai Land Department on 30 November 2024. Title deed issued in buyer's name. All fees settled.&lt;/p&gt;</field>
+    </record>
+
+    <!-- Payment plan for booked commercial -->
+    <record id="payment_plan_comm_booking" model="property.payment.plan">
+        <field name="sales_contract_id" ref="sales_contract_commercial_booked"/>
+        <field name="name">Booking / EOI</field>
+        <field name="due_date">2025-03-15</field>
+        <field name="amount">265000</field>
+        <field name="state">paid</field>
+        <field name="notes">Paid by bank transfer</field>
+    </record>
+    <record id="payment_plan_comm_down" model="property.payment.plan">
+        <field name="sales_contract_id" ref="sales_contract_commercial_booked"/>
+        <field name="name">Down Payment (20%)</field>
+        <field name="due_date">2025-04-30</field>
+        <field name="amount">530000</field>
+        <field name="state">pending</field>
+        <field name="notes">Linked to mortgage disbursement</field>
+    </record>
+    <record id="payment_plan_comm_milestone1" model="property.payment.plan">
+        <field name="sales_contract_id" ref="sales_contract_commercial_booked"/>
+        <field name="name">On SPA Signing (30%)</field>
+        <field name="due_date">2025-05-15</field>
+        <field name="amount">795000</field>
+        <field name="state">pending</field>
+    </record>
+    <record id="payment_plan_comm_completion" model="property.payment.plan">
+        <field name="sales_contract_id" ref="sales_contract_commercial_booked"/>
+        <field name="name">On Completion / Transfer (40%)</field>
+        <field name="due_date">2025-09-30</field>
+        <field name="amount">1060000</field>
+        <field name="state">pending</field>
+    </record>
+
+</data>
+</odoo>

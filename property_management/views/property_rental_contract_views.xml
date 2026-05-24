@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_rental_contract_list" model="ir.ui.view">
+        <field name="name">property.rental.contract.list</field>
+        <field name="model">property.rental.contract</field>
+        <field name="arch" type="xml">
+            <list string="Rental Contracts"
+                decoration-info="state == 'active'"
+                decoration-muted="state in ['expired','terminated']">
+                <field name="name"/>
+                <field name="unit_id"/>
+                <field name="tenant_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="payment_term"/>
+                <field name="rent_amount"/>
+                <field name="security_deposit"/>
+                <field name="invoice_count"/>
+                <field name="state" widget="badge"
+                    decoration-success="state == 'active'"
+                    decoration-warning="state == 'draft'"
+                    decoration-muted="state in ['expired','terminated']"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_rental_contract_form" model="ir.ui.view">
+        <field name="name">property.rental.contract.form</field>
+        <field name="model">property.rental.contract</field>
+        <field name="arch" type="xml">
+            <form string="Rental Contract">
+                <header>
+                    <button name="action_activate" string="Activate" type="object"
+                        class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_generate_invoices" string="Generate Invoices"
+                        type="object" class="btn-secondary" invisible="state != 'active'"/>
+                    <button name="action_terminate" string="Terminate" type="object"
+                        invisible="state not in ['active']"
+                        confirm="Are you sure you want to terminate this contract?"/>
+                    <button name="action_expire" string="Mark Expired" type="object"
+                        invisible="state not in ['active']"/>
+                    <button name="action_draft" string="Reset to Draft" type="object"
+                        invisible="state not in ['terminated','expired']"/>
+                    <field name="state" widget="statusbar"
+                        statusbar_visible="draft,active,expired"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object"
+                            name="action_view_invoices" icon="fa-usd">
+                            <field name="invoice_count" widget="statinfo" string="Invoices"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group string="Contract Details">
+                            <field name="unit_id"/>
+                            <field name="tenant_id"/>
+                            <field name="owner_id" readonly="1"/>
+                        </group>
+                        <group string="Period &amp; Terms">
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="payment_term"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Financials">
+                            <field name="currency_id" invisible="1"/>
+                            <field name="rent_amount"/>
+                            <field name="security_deposit"/>
+                            <field name="admin_fee"/>
+                            <field name="total_invoiced" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Terms &amp; Notes">
+                            <field name="notes" placeholder="Contract terms, special conditions..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_rental_contract_search" model="ir.ui.view">
+        <field name="name">property.rental.contract.search</field>
+        <field name="model">property.rental.contract</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="unit_id"/>
+                <field name="tenant_id"/>
+                <filter string="Active" name="active" domain="[('state','=','active')]"/>
+                <filter string="Draft" name="draft" domain="[('state','=','draft')]"/>
+                <filter string="Expired" name="expired" domain="[('state','=','expired')]"/>
+                <group>
+                    <filter string="Status" name="group_state" context="{'group_by': 'state'}"/>
+                    <filter string="Payment Terms" name="group_payment_term" context="{'group_by': 'payment_term'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_rental_contract" model="ir.actions.act_window">
+        <field name="name">Rental Contracts</field>
+        <field name="res_model">property.rental.contract</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first rental contract</p>
+        </field>
+    </record>
+</odoo>
