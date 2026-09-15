@@ -15,6 +15,14 @@
     padding: 60px 40px;
     text-align: center;
   }
+  .hero-icon {
+    width: 88px;
+    height: 88px;
+    border-radius: 20px;
+    margin: 0 auto 18px;
+    display: block;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+  }
   .hero h1 { font-size: 2.6em; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.5px; }
   .hero p { font-size: 1.18em; color: #c9d0e8; max-width: 660px; margin: 0 auto 28px; line-height: 1.6; }
   .badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
@@ -137,6 +145,14 @@
 
   /* Contact */
   .contact-section { background: #f5f5f5; }
+  .contact-logo {
+    display: block;
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 16px;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+  }
   .contact-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -228,7 +244,8 @@
 
 <!-- ===== HERO ===== -->
 <div class="hero">
-  <h1>🏠 Property Management</h1>
+  <img class="hero-icon" src="icon.png" alt="Property Management"/>
+  <h1>Property Management</h1>
   <p>Complete property solution for Odoo 19 — manage rentals, leases, sales and SPA contracts in one place. Free &amp; open source.</p>
   <div class="badges">
     <span class="badge">✓ Odoo 19</span>
@@ -295,7 +312,7 @@
 
     <!-- Screenshot 1: Property Units Kanban -->
     <div class="screenshot-card">
-      <img src="/leapai_property_management/static/description/screenshot_01_property_units.png"
+      <img src="screenshot_01_property_units.png"
            style="width:100%;" alt="Property Units Kanban View"/>
       <div class="screenshot-caption">
         <span class="screenshot-num">1</span>
@@ -305,7 +322,7 @@
 
     <!-- Screenshot 2: Unit Form -->
     <div class="screenshot-card">
-      <img src="/leapai_property_management/static/description/screenshot_02_unit_form.png"
+      <img src="screenshot_02_unit_form.png"
            style="width:100%;" alt="Property Unit Form View"/>
       <div class="screenshot-caption">
         <span class="screenshot-num">2</span>
@@ -315,7 +332,7 @@
 
     <!-- Screenshot 3: Rental Contract -->
     <div class="screenshot-card">
-      <img src="/leapai_property_management/static/description/screenshot_03_rental_contract.png"
+      <img src="screenshot_03_rental_contract.png"
            style="width:100%;" alt="Rental Contract Form View"/>
       <div class="screenshot-caption">
         <span class="screenshot-num">3</span>
@@ -325,7 +342,7 @@
 
     <!-- Screenshot 4: Sales Contract SPA -->
     <div class="screenshot-card">
-      <img src="/leapai_property_management/static/description/screenshot_04_sales_contract.png"
+      <img src="screenshot_04_sales_contract.png"
            style="width:100%;" alt="Sales Contract SPA Form View"/>
       <div class="screenshot-caption">
         <span class="screenshot-num">4</span>
@@ -335,7 +352,7 @@
 
     <!-- Screenshot 5: PDF Report -->
     <div class="screenshot-card">
-      <img src="/leapai_property_management/static/description/screenshot_05_pdf_report.png"
+      <img src="screenshot_05_pdf_report.png"
            style="width:100%;" alt="Rental Contract PDF Report"/>
       <div class="screenshot-caption">
         <span class="screenshot-num">5</span>
@@ -458,6 +475,7 @@
 <!-- ===== CONTACT LEAP AI ===== -->
 <div class="contact-section">
   <div class="section">
+    <img class="contact-logo" src="icon.png" alt="LEAP AI"/>
     <h2 class="section-title">Contact LEAP AI</h2>
     <p class="section-subtitle">King Abdulaziz Branch Road, Riyadh, Saudi Arabia</p>
     <div class="divider"></div>
