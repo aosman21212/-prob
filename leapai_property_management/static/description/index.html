@@ -135,6 +135,83 @@
   .summary-table td:first-child { font-weight: 700; color: #1a1a2e; }
   .nav-path { font-family: monospace; background: #f3eaf5; color: #875A7B; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; }
 
+  /* Contact */
+  .contact-section { background: #f5f5f5; }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin-bottom: 28px;
+  }
+  .contact-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 28px 22px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    border-top: 4px solid #875A7B;
+    text-align: center;
+  }
+  .contact-icon { font-size: 2em; margin-bottom: 12px; }
+  .contact-card h3 { font-size: 1.05em; color: #1a1a2e; margin-bottom: 8px; font-weight: 700; }
+  .contact-card p { font-size: 0.92em; color: #555; line-height: 1.6; margin-bottom: 16px; }
+  .contact-card p a { color: #555; text-decoration: none; }
+  .contact-btn {
+    display: inline-block;
+    background: #1a1a2e;
+    color: #e8c4f0;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .contact-btn:hover, .contact-btn:focus { background: #875A7B; color: #fff; }
+
+  .developer-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #4a2c5e 100%);
+    color: #fff;
+    border-radius: 12px;
+    padding: 26px 28px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  }
+  .developer-avatar {
+    flex-shrink: 0;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    border: 2px solid rgba(232,196,240,0.6);
+    color: #e8c4f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4em;
+    font-weight: 700;
+  }
+  .developer-info { flex: 1; }
+  .developer-info h3 { font-size: 1.2em; font-weight: 700; margin-bottom: 4px; }
+  .developer-info p { font-size: 0.88em; color: #c9d0e8; line-height: 1.5; }
+  .linkedin-btn {
+    flex-shrink: 0;
+    display: inline-block;
+    background: #0A66C2;
+    color: #fff;
+    padding: 10px 22px;
+    border-radius: 20px;
+    font-size: 0.88em;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .linkedin-btn:hover, .linkedin-btn:focus { background: #fff; color: #0A66C2; }
+
+  @media (max-width: 720px) {
+    .features-grid, .contact-grid { grid-template-columns: 1fr; }
+    .developer-card { flex-direction: column; text-align: center; }
+  }
+
   /* Footer */
   .footer {
     background: #1a1a2e;
@@ -375,6 +452,55 @@
         </tr>
       </tbody>
     </table>
+  </div>
+</div>
+
+<!-- ===== CONTACT LEAP AI ===== -->
+<div class="contact-section">
+  <div class="section">
+    <h2 class="section-title">Contact LEAP AI</h2>
+    <p class="section-subtitle">King Abdulaziz Branch Road, Riyadh, Saudi Arabia</p>
+    <div class="divider"></div>
+
+    <div class="contact-grid">
+
+      <div class="contact-card">
+        <div class="contact-icon">📍</div>
+        <h3>Our Location</h3>
+        <p>King Abdulaziz Branch Road<br/>Riyadh, Saudi Arabia</p>
+        <a class="contact-btn"
+           href="https://www.google.com/maps/search/?api=1&amp;query=King+Abdulaziz+Branch+Road+Riyadh+Saudi+Arabia"
+           target="_blank" rel="noopener noreferrer">View on map</a>
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-icon">✉️</div>
+        <h3>Send an Email</h3>
+        <p><a href="mailto:sales@leapai.ai">sales@leapai.ai</a></p>
+        <a class="contact-btn" href="mailto:sales@leapai.ai">Email us now</a>
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-icon">📞</div>
+        <h3>Call Anytime</h3>
+        <p><a href="tel:+966535533627">+966 53 553 3627</a></p>
+        <a class="contact-btn" href="tel:+966535533627">Call now</a>
+      </div>
+
+    </div>
+
+    <!-- Developer -->
+    <div class="developer-card">
+      <div class="developer-avatar">AO</div>
+      <div class="developer-info">
+        <h3>Abdulkaraim Osman</h3>
+        <p>Tech Manager | Backend Engineer | DevOps Engineer<br/>at Bab International Corp For Specialized Services</p>
+      </div>
+      <a class="linkedin-btn"
+         href="https://www.linkedin.com/in/abdulkaraim-o-385b7a110/"
+         target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a>
+    </div>
+
   </div>
 </div>
 
